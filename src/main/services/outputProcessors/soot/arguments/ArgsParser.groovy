@@ -19,12 +19,15 @@ class ArgsParser {
         this.cli.h(longOpt: 'help', 'Show help for executing commands')
         this.cli.a(longOpt: 'allanalysis', 'Excute all analysis')
         this.cli.t(longOpt: 'timeout', args: 1, argName: 'timeout', "timeout (default: 240)")
+        this.cli.l(longOpt: 'depthLimit', args: 1, argName: 'depthLimit', "Maximum depth limit for analysis (default: 5)")
         this.cli.df(longOpt: 'svfa-intraprocedural',  "Run svfa-intraprocedural")
         this.cli.idf(longOpt: 'svfa-interprocedural',  "Run svfa-interprocedural")
         this.cli.cf(longOpt: 'dfp-confluence-intraprocedural',  "Run dfp-confluence-intraprocedural")
         this.cli.icf(longOpt: 'dfp-confluence-interprocedural',  "Run dfp-confluence-interprocedural")
         this.cli.oa(longOpt: 'overriding-intraprocedural',  "Run overriding-intraprocedural")
         this.cli.ioa(longOpt: 'overriding-interprocedural',  "Run overriding-interprocedural")
+        this.cli.oawopa(longOpt: 'oa-without-pa',  "Run oa-without-pa")
+        this.cli.ioawopa(longOpt: 'ioa-without-pa',  "Run ioa-without-pa")
         this.cli.dfp(longOpt: 'dfp-intra',  "Run dfp-intra")
         this.cli.idfp(longOpt: 'dfp-inter',  "Run dfp-inter")
         this.cli.cd(longOpt: 'cd',  "Run cd")
@@ -60,6 +63,9 @@ class ArgsParser {
         if (this.options.t) {
             args.setTimeout(this.options.t.toLong());
         }
+        if (this.options.l) {
+            args.setDepthLimit(this.options.l.toLong())
+        }
         if (this.options.df) {
             args.setDfIntra(true)
         }
@@ -77,6 +83,12 @@ class ArgsParser {
         }
         if (this.options.ioa) {
             args.setOaInter(true)
+        }
+        if (this.options.oawopa) {
+            args.setOaIntraWithoutPA(true)
+        }
+        if (this.options.ioawopa) {
+            args.setOaInterWithoutPA(true)
         }
         if (this.options.dfp) {
             args.setDfpIntra(true)

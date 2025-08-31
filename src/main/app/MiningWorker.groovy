@@ -12,6 +12,9 @@ import services.util.Utils
 import util.FileManager
 import util.MergeHelper
 import util.ProcessRunner
+import java.util.Collections
+import java.util.Random
+import java.text.SimpleDateFormat
 
 import java.text.SimpleDateFormat
 import java.util.concurrent.BlockingQueue
@@ -49,12 +52,22 @@ class MiningWorker implements Runnable {
                 }
 
                 def (mergeCommits, skipped) = project.getMergeCommits(commitHashesExtractor)
+
+                Random random = new Random(arguments.getRandomSeed())
+                Collections.shuffle(mergeCommits, random)
+
+                int collectedMergeCommits = 0
                 for (mergeCommit in mergeCommits) {
+                    if (collectedMergeCommits >= arguments.getMaxCommitsPerProject()) {
+                        break
+                    }
+
                     try {
                         if (commitFilter.applyFilter(project, mergeCommit)) {
                             println "${project.getName()} - Merge commit: ${mergeCommit.getSHA()}"
 
                             runDataCollectors(project, mergeCommit)
+                            collectedMergeCommits++
                         }
                     } catch (Exception e) {
                         println "${project.getName()} - ${mergeCommit.getSHA()} - ERROR"

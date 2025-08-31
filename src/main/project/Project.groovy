@@ -74,6 +74,7 @@ class Project {
 
         if(mergeCommits.isEmpty())
             println "No merge commits."
+
         return [mergeCommits, skipped]
     }
 

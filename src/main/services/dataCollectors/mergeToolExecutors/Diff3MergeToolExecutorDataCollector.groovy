@@ -3,7 +3,7 @@ package services.dataCollectors.mergeToolExecutors
 
 import java.nio.file.Path
 
-class LastMergeMergeToolExecutorDataCollector extends BaseMergeToolExecutorDataCollector {
+class Diff3MergeToolExecutorDataCollector extends BaseMergeToolExecutorDataCollector {
 
     private static final String DIFF3_BINARY_PATH = "/usr/bin/diff3"
 

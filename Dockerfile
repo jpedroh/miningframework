@@ -14,6 +14,7 @@ RUN yum -y update
 RUN yum -y install git
 
 COPY --from=build /usr/src/miningframework/build /usr/local/bin/miningframework
+COPY ./dependencies/ /usr/src/miningframework/dependencies/
 RUN chmod +x /usr/local/bin/miningframework/install/miningframework/bin/miningframework
 
 ENV PATH="/usr/local/bin/miningframework/install/miningframework/bin:${PATH}"

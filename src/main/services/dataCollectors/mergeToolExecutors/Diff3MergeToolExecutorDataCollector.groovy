@@ -3,17 +3,17 @@ package services.dataCollectors.mergeToolExecutors
 
 import java.nio.file.Path
 
+import static app.MiningFramework.arguments
+
 class Diff3MergeToolExecutorDataCollector extends BaseMergeToolExecutorDataCollector {
-
-    private static final String DIFF3_BINARY_PATH = "/usr/bin/diff3"
-
     @Override
     protected List<String> getArgumentsForTool(Path file, Path outputFile) {
-        return Arrays.asList(DIFF3_BINARY_PATH,
-                "-m",
-                file.resolve("left.java").toAbsolutePath().toString(),
-                file.resolve("base.java").toAbsolutePath().toString(),
-                file.resolve("right.java").toAbsolutePath().toString()
+        return Arrays.asList("sh",
+                "./dependencies/diff3.sh",
+                file.resolve("left${arguments.getFileExtension()}".toString()).toAbsolutePath().toString(),
+                file.resolve("base${arguments.getFileExtension()}".toString()).toAbsolutePath().toString(),
+                file.resolve("right${arguments.getFileExtension()}".toString()).toAbsolutePath().toString(),
+                outputFile.toAbsolutePath().toString()
             )
     }
 

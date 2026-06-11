@@ -53,7 +53,7 @@ abstract class BaseMergeToolExecutorDataCollector implements DataCollector {
     MergeExecutionSummary runMergeForFile(Path file) {
         LOG.trace("Starting execution of tool ${getToolName()} in ${file}")
         List<Long> executionTimes = new ArrayList<>()
-        def outputFilePath = file.resolve("merge." + getToolName().toLowerCase() + ".java")
+        def outputFilePath = file.resolve("merge." + getToolName().toLowerCase() + arguments.getFileExtension())
 
         for (int i = 0; i < PERF_SAMPLING_TOTAL_NUMBER_OF_EXECUTIONS; i++) {
             LOG.trace("Starting execution ${i + 1} of ${PERF_SAMPLING_TOTAL_NUMBER_OF_EXECUTIONS}")
